@@ -1,0 +1,14 @@
+version: 2.1
+jobs:
+  run-tests-talha:
+    docker:
+      - image: circleci/python 3.7.4
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: installing python packages
+          command: 
+            pip install -r "requirements.txt"
+
