@@ -1,12 +1,21 @@
-from app import app as flask_app
-import pytest
+import app as flask_app
 
+import unittest
 
-@pytest.fixture
-def app():
-    yield flask_app
+class testing_flask(unittest.TestCase):
 
+    def setup(self):
+        self.app = flask_app.app.test_client()
+        self.app.testing = True
 
-@pytest.fixture
-def client(app):
-    return app.test_client()
+    def test_status_code(self):
+        response =  self.app.get('/')
+        self.assertEqual(response, 200)
+
+    def test_message(self):
+        greeting = {'talha':'something'}
+        self.assertDictEqual(flask_app.start(), greeting)
+
+if __name__ == '__main__':
+    unittest.main()
+
